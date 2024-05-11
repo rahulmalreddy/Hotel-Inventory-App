@@ -1,0 +1,47 @@
+<!-- <h1>welcome to {{ hotelname }}</h1> -->
+<p>Room Works</p>
+<hinv-header></hinv-header>
+<button (click)="toggle()">Check Rooms available and Room types</button>
+<button (click)="ToCheckNgOnChanges()">To check NgOnChanges</button>
+<button (click)="editRoom()">Edit Room</button>
+<button (click)="deleteRoom()">delete Room</button>
+<div [hidden]="hideRooms">
+  Number of Rooms available = {{ rooms.totalRooms }}
+  <p>this is the username {{ loggedInUserName }}</p>
+  <div>
+    <button (click)="addRoom()">Add Room</button>
+  </div>
+
+  <div *ngIf="rooms.availableRooms > 0">
+    <hinv-rooms-list
+      [rooms]="roomlist"
+      [userType]="userType"
+      (selectedRoom)="selectedRoom($event)"
+      [HotelOperatorType]="HotelOperatorType"
+    ></hinv-rooms-list>
+  </div>
+</div>
+
+<div *ngIf="roomsSelected !== undefined; else elseBlock">
+  <table>
+    <tr>
+      <th>Room Number</th>
+      <th>Room type</th>
+      <th>Room price</th>
+      <th>Room Amenities</th>
+      <th>Checkin Time</th>
+      <th>Rating</th>
+    </tr>
+    <tr ngClass="even">
+      <td>{{ roomsSelected.roomNumber }}</td>
+      <td>{{ roomsSelected.roomType }}</td>
+      <td>{{ roomsSelected.amenities }}</td>
+      <td>{{ roomsSelected.price }}</td>
+      <td>{{ roomsSelected.chekingTime }}</td>
+      <td>{{ roomsSelected.rating }}</td>
+    </tr>
+  </table>
+</div>
+<ng-template #elseBlock>
+  <p>No rooms selected!</p>
+</ng-template>

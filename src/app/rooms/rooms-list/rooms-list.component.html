@@ -1,0 +1,41 @@
+
+<div *ngIf="userType == 'Admin'; else elseBlock">
+  <h3> Hotel is operated by {{HotelOperatorType}}</h3>
+  <h4>Rooms List</h4>
+  <table>
+    <tr>
+      <th>index</th>
+      <th>Even/Odd</th>
+      <th>Room Number</th>
+      <th>Room type</th>
+      <th>Room price</th>
+      <th>Room Amenities</th>
+      <th>Checkin Time</th>
+      <th>Rating</th>
+      <th>Selected Room</th>
+    </tr>
+    <tr
+      [ngClass]="e ? 'even' : 'odd'"
+      *ngFor="let room of rooms; let i = index; let e = even; let o = odd"
+    >
+      <td>{{ i }}</td>
+      <td>{{ e ? "Even" : "Odd" }}</td>
+      <td>{{ room.roomNumber }}</td>
+      <td>{{ room.roomType }}</td>
+      <td>{{ room.amenities }}</td>
+      <td>{{ room.price }}</td>
+      <td>{{ room.chekingTime }}</td>
+      <td>{{ room.rating }}</td>
+
+      <td>
+        <!-- <button class="btn btn-primary" (click)="selectRoom(room)">
+          Select Room
+        </button> -->
+        <button class = "btn btn-primary" [routerLink]="['/rooms', room.roomNumber]">Book Room</button>
+      </td>
+    </tr>
+  </table>
+</div>
+<ng-template #elseBlock>
+  <p>not admin user!</p>
+</ng-template>
